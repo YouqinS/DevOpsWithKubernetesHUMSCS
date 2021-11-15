@@ -1,0 +1,82 @@
+
+
+Create a cluster:
+```
+sudo k3d cluster create -a 2
+
+[sudo] password for zbook: 
+INFO[0000] Prep: Network                                
+INFO[0000] Created network 'k3d-k3s-default'            
+INFO[0000] Created volume 'k3d-k3s-default-images'      
+...
+INFO[0125] --kubeconfig-update-default=false --> sets --kubeconfig-switch-context=false 
+INFO[0126] You can now use it like this:                
+kubectl config use-context k3d-k3s-default
+kubectl cluster-info
+```
+
+
+build image:
+
+```
+docker build . -t logoutput
+```
+
+
+tag image:
+
+```
+docker tag logoutput lnsth/logoutput
+```
+
+
+push to docker hub:
+
+```
+docker push lnsth/logoutput
+```
+
+
+
+Create a deployment:
+```
+sudo kubectl create deployment hashgenerator --image=lnsth/logoutput
+deployment.apps/hashgenerator created
+```
+
+
+
+Get pods:
+```
+sudo kubectl get pods
+NAME                             READY   STATUS    RESTARTS   AGE
+hashgenerator-5b5b8cfb47-4twfm   1/1     Running   0          2m57s
+```
+
+
+Get deployments:
+```
+sudo kubectl get deployments
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+hashgenerator   1/1     1            1           3m58s
+```
+
+
+
+ĺogs:
+
+```
+sudo kubectl logs -f hashgenerator-5b5b8cfb47-4twfm
+2021-11-15T21:10:52.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:10:57.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:02.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:07.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:12.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:17.764Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:22.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:27.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:32.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:37.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:42.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+2021-11-15T21:11:47.763Z: e2218b89-8a30-4cd7-8ab1-e86585e43242
+```
