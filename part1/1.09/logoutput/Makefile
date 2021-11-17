@@ -1,4 +1,4 @@
-IMAGE_TAG=exercise_1.07
+IMAGE_TAG=exercise_1.09
 IMAGE_NAME_WITH_TAG=logoutput:$(IMAGE_TAG)
 
 all: package  image  push-image

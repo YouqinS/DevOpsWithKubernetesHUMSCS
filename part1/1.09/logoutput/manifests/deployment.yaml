@@ -23,7 +23,7 @@ spec:
         app: hashgenerator
     spec:
       containers:
-        - image: lnsth/logoutput:exercise_1.07
+        - image: lnsth/logoutput:exercise_1.09
           imagePullPolicy: Always
           name: logoutput
           resources: {}
