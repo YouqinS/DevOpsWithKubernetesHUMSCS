@@ -17,4 +17,4 @@ push-image:
 
 
 run:
-	./mvnw org.springframework.boot:spring-boot-maven-plugin:run
+	./mvnw clean org.springframework.boot:spring-boot-maven-plugin:run

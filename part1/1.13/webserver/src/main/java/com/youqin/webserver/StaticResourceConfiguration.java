@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.io.File;
+
 @Configuration
 public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
     @Override
@@ -11,9 +13,17 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
         System.out.println("adding resource handler:");
         var absDir = System.getProperty("user.dir");
         System.out.println(absDir);
-        var location = absDir + "/"+"files/";
-        System.out.println("location used to serve files:"+location);
-        registry.addResourceHandler("/files/").addResourceLocations("file:" + location);
+        String resourceLocation ;
+
+        if (absDir.endsWith(File.separator )) {
+             resourceLocation = "file:" + absDir + "files"+File.separator ;
+        }
+        else {
+             resourceLocation = "file:" + absDir + File.separator + "files"+File.separator ;
+        }
+
+        System.out.println("location used to serve files ---> "+resourceLocation);
+        registry.addResourceHandler("/files/**").addResourceLocations(resourceLocation);
         super.addResourceHandlers(registry);
     }
 

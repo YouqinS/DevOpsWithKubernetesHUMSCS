@@ -34,12 +34,13 @@ public class HelloController {
     }
 
     private void downloadPictureIfNeeded() throws IOException {
+        System.out.println("downloadPictureIfNeeded()");
         Files.createDirectories(Paths.get(directory));
 
         File pictureFile = new File(picturePath);
         boolean exists = pictureFile.exists();
         boolean shouldDownloadImage = !exists || ( (new Date().getTime() - pictureFile.lastModified()) >= 24 *60*60 *1000);
-
+        System.out.println("should download="+shouldDownloadImage);
         if (shouldDownloadImage) {
             pictureFile.setLastModified(new Date().getTime());
             FileUtils.copyURLToFile(
