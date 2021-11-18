@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shared-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hashgenerator1-2
+  template:
+    metadata:
+      labels:
+        app: hashgenerator1-2
+    spec:
+      volumes:
+        - name: shared-logoutput
+          emptyDir: {}
+      containers:
+        - name: logoutput1
+          image: lnsth/logoutput1:exercise_1.10
+          imagePullPolicy: Always
+          volumeMounts:
+          - name: shared-logoutput
+            mountPath: /files
+        - name: logoutput2
+          image: lnsth/logoutput2:exercise_1.10
+          imagePullPolicy: Always
+          volumeMounts:
+          - name: shared-logoutput
+            mountPath: /files

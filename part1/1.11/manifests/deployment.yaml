@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hash-pingpong
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hash-pingpong
+  template:
+    metadata:
+      labels:
+        app: hash-pingpong
+    spec:
+      volumes:
+        - name: shared-logoutput
+          persistentVolumeClaim:
+            claimName: pv-claim
+      containers:
+        - name: hashgenerator
+          image: lnsth/logoutput:exercise_1.11
+          imagePullPolicy: Always
+          volumeMounts:
+          - name: shared-logoutput
+            mountPath: /files
+        - name: pingpong
+          image: lnsth/pingpong:exercise_1.11
+          imagePullPolicy: Always
+          volumeMounts:
+          - name: shared-logoutput
+            mountPath: /files

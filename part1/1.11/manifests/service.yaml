@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hash-pingpong-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: hash-pingpong
+  ports:
+    - name: pingpong
+      port: 2222
+      protocol: TCP
+      targetPort: 8888
+    - name: logoutput
+      port: 3333
+      protocol: TCP
+      targetPort: 9999
