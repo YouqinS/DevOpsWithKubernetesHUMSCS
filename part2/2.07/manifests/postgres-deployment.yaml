@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: postgres
+  name: postgres
+spec:
+  serviceName: "postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:10.1
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: pingpong
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pingpong-postgress-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pingpong-postgress-secret
+                  key: POSTGRES_PASSWORD              
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql/data"
+              name: "pingpong-postgres"
+      volumes:
+        - hostPath:
+            path: "/home/docker/pgdata"
+          name: pingpong-postgres
