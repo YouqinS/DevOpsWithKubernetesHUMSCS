@@ -20,4 +20,5 @@ run:
 	./mvnw org.springframework.boot:spring-boot-maven-plugin:run
 
 start-postgres:
-	sudo docker run -d -it -p 5432:5432 -e POSTGRES_DB=pingpong -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres postgres:10.1
+
+
