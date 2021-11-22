@@ -10,7 +10,7 @@ const getToDos = async () => {
 }
 
 const getImage = async () => {
-    const request = axios.get("https://picsum.photos/1200", {
+    const request = axios.get(baseUrl + "image", {
         responseType: 'arraybuffer'})
      
     const response = await request
