@@ -21,3 +21,10 @@ spec:
                 name: todo-app-svc
                 port:
                   number: 3333
+          - path: /image
+            pathType: Prefix
+            backend:
+              service:
+                name: todo-app-svc
+                port:
+                  number: 3333
