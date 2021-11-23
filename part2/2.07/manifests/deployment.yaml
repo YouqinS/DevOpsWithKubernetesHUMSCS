@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pingpong
+  name: pingpong
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pingpong
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: pingpong
+    spec:
+      volumes:
+        - name: a-pv
+          persistentVolumeClaim:
+            claimName: pv-claim
+      containers:
+        - name: pingpong
+          image: lnsth/pingpong:exercise_2.07
+          imagePullPolicy: Always
+          env:
+            - name: spring.datasource.url
+              valueFrom:
+                secretKeyRef:
+                  name: pingpong-postgress-secret
+                  key: spring.datasource.url
+            - name: spring.datasource.username
+              valueFrom:
+                secretKeyRef:
+                  name: pingpong-postgress-secret
+                  key: POSTGRES_USER
+            - name: spring.datasource.password
+              valueFrom:
+                secretKeyRef:
+                  name: pingpong-postgress-secret
+                  key: POSTGRES_PASSWORD    
+          volumeMounts:
+          - name: a-pv
+            mountPath: /files
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
