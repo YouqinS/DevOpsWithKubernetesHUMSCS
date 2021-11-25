@@ -29,7 +29,7 @@ jobs:
     - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
     - name: Build BE
       run: |-
-        cd part3/3.03/be-todos && ./mvnw clean package
+        cd part3/3.03/be-todos && ./mvnw clean package -Dmaven.test.skip=true
         docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" .
     - name: Publish BE
       run: |-
