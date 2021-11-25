@@ -24,13 +24,13 @@ spec:
     spec:
       containers:
         - name: be-todos
-          image: PROJECT/BEIMAGE
+          image: be-todos
           imagePullPolicy: Always
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         - name: fe-todos
-          image: PROJECT/FEIMAGE
+          image: fe-todos
           imagePullPolicy: Always
       dnsPolicy: ClusterFirst
       restartPolicy: Always

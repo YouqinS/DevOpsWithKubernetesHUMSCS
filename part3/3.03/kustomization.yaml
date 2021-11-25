@@ -4,7 +4,7 @@ resources:
 - manifests/deployment.yaml
 - manifests/service.yaml
 images:
-- name: PROJECT/FEIMAGE
+- name: fe-todos
   newName: lnsth/todo-app-fe:exercise_3.03
-- name: PROJECT/BEIMAGE
+- name: be-todos
   newName: lnsth/todo-app-be:exercise_3.03
