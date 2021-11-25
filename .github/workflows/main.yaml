@@ -29,15 +29,13 @@ jobs:
     - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
     - name: Build BE
       run: |-
-        docker build \
-          --tag "gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+        docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
     - name: Publish BE
       run: |-
         docker push "gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
     - name: Build FE
       run: |-
-        docker build \
-          --tag "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+        docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
     - name: Publish FE
       run: |-
         docker push "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
