@@ -36,7 +36,7 @@ jobs:
         docker push "gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
     - name: Build FE
       run: |-
-        cd part3/3.03/fe-todos && docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" .
+        cd part3/3.03/fe-todos/todo-app && docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" .
     - name: Publish FE
       run: |-
         docker push "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
