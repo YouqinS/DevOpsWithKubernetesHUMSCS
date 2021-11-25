@@ -21,11 +21,6 @@ spec:
     metadata:
       labels:
         app: todo-app
-    spec:
-      volumes:
-        - name: a-pv
-          persistentVolumeClaim:
-            claimName: pv-claim
       containers:
         - name: be-todos
           image: PROJECT/BEIMAGE
