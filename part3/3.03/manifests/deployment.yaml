@@ -21,6 +21,7 @@ spec:
     metadata:
       labels:
         app: todo-app
+    spec:
       containers:
         - name: be-todos
           image: PROJECT/BEIMAGE
