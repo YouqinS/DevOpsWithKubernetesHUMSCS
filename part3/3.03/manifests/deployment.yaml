@@ -22,6 +22,10 @@ spec:
       labels:
         app: todo-app
     spec:
+      volumes:
+        - name: a-pv
+          persistentVolumeClaim:
+            claimName: pv-claim
       containers:
         - name: be-todos
           image: be-todos
@@ -47,7 +51,10 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: todoapp-postgress-secret
-                  key: POSTGRES_PASSWORD    
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+          - name: a-pv
+            mountPath: /files    
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
