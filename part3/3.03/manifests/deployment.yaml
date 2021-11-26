@@ -30,6 +30,22 @@ spec:
         - name: be-todos
           image: be-todos
           imagePullPolicy: Always
+          env:
+            - name: spring.datasource.url
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-postgress-secret
+                  key: spring.datasource.url
+            - name: spring.datasource.username
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-postgress-secret
+                  key: POSTGRES_USER
+            - name: spring.datasource.password
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-postgress-secret
+                  key: POSTGRES_PASSWORD
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
