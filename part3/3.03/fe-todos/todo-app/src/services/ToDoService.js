@@ -1,6 +1,6 @@
   
 import axios from 'axios'
-const baseUrl = 'http://localhost:8081/'
+const baseUrl = window.location.protocol + '//'+window.location.hostname+':9999/'
 const todoUrl = baseUrl + "todo"
 
 const getToDos = async () => {
@@ -19,7 +19,12 @@ const getImage = async () => {
 
 const createToDo = async newObject => {
     console.log("service: createToDo");
-    const request = axios.post(todoUrl, newObject)
+    const axiosConfig = {
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        }
+    };
+    const request = axios.post(todoUrl, newObject, axiosConfig)
     const response = await request
     return response.data
 }

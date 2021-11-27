@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.util.List;
 
 @RestController
+//to allow webbrowser to call when origin is locahost:<another-port-than-address-bar-in-browser> for local testing
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class TodoController {
 @Autowired
 private TodoService service;

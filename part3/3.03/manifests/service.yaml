@@ -12,6 +12,6 @@ spec:
       protocol: TCP
       targetPort: 3000
     - name: be-todos
-      port: 3333
+      port: 9999
       protocol: TCP
       targetPort: 9999
