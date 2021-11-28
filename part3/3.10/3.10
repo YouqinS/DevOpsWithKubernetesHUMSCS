@@ -1,0 +1,35 @@
+query:
+
+severity=INFO
+resource.type="k8s_container"
+resource.labels.namespace_name="main"
+resource.labels.container_name="be-todos"
+
+
+
+
+
+{
+  "textPayload": "adding \"one more\" to database as it is within the limit of 140 characters.",
+  "insertId": "8u4cb1n90japfasj",
+  "resource": {
+    "type": "k8s_container",
+    "labels": {
+      "container_name": "be-todos",
+      "location": "europe-north1-b",
+      "pod_name": "todo-app-8546445d7f-qv57j",
+      "cluster_name": "dwk-cluster",
+      "namespace_name": "main",
+      "project_id": "dwk-gke-333120"
+    }
+  },
+  "timestamp": "2021-11-28T23:45:55.932691496Z",
+  "severity": "INFO",
+  "labels": {
+    "k8s-pod/app": "todo-app",
+    "compute.googleapis.com/resource_name": "gke-dwk-cluster-default-pool-3c93a92d-4m6v",
+    "k8s-pod/pod-template-hash": "8546445d7f"
+  },
+  "logName": "projects/dwk-gke-333120/logs/stdout",
+  "receiveTimestamp": "2021-11-28T23:45:58.918924615Z"
+}
