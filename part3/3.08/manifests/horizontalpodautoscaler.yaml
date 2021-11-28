@@ -8,5 +8,5 @@ spec:
     kind: Deployment
     name: todo-app
   minReplicas: 1
-  maxReplicas: 6
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 50
