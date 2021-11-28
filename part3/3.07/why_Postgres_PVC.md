@@ -1,0 +1,1 @@
+## The project was deployed with Postgres with PVC already during previous exercises.
