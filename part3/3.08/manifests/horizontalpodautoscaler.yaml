@@ -11,5 +11,5 @@ spec:
   maxReplicas: 6
   targetCPUUtilizationPercentage: 50
   behavior:
-  scaleDown:
-    stabilizationWindowSeconds: 30
+    scaleDown:
+      stabilizationWindowSeconds: 30
