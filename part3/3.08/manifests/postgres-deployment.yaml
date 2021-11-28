@@ -33,3 +33,11 @@ spec:
                 secretKeyRef:
                   name: todoapp-postgress-secret
                   key: POSTGRES_PASSWORD              
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql/data"
+              name: "postgres-volume"
+              subPath: postgres
+      volumes:
+        - name: postgres-volume
+          persistentVolumeClaim:
+            claimName: postgres-pvc
