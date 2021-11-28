@@ -11,4 +11,7 @@ jobs:
     steps:
     - name: Delete
       run: |-
+        echo ${GITHUB_REF#refs/heads/}
         kubectl delete all --all -n ${GITHUB_REF#refs/heads/}
+        echo "delete-environment"
+
