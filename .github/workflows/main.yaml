@@ -45,7 +45,10 @@ jobs:
     - name: Deploy
       run: |-
         kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+        echo "create namespace"
         kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+        echo "set-context"
+
         kustomize edit set namespace ${GITHUB_REF#refs/heads
         cd part3/3.03/
         kustomize edit set image fe-todos=gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
