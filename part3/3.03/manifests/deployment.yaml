@@ -22,10 +22,6 @@ spec:
       labels:
         app: todo-app
     spec:
-      volumes:
-        - name: a-pv
-          persistentVolumeClaim:
-            claimName: pv-claim
       containers:
         - name: be-todos
           image: be-todos
@@ -52,9 +48,6 @@ spec:
         - name: fe-todos
           image: fe-todos
           imagePullPolicy: Always
-          volumeMounts:
-          - name: a-pv
-            mountPath: /files    
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
