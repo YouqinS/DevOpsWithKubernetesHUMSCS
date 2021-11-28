@@ -1,7 +1,7 @@
 name: Release application
 
 on:
-  [push, delete]:
+  delete:
 
 jobs:
   delete-environment:
