@@ -1,0 +1,52 @@
+name: Release application
+
+on:
+  push:
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  IMAGE_BE: todo-app-be
+  IMAGE_FE: todo-app-fe
+
+jobs:
+  build-publish-deploy:
+    name: Build, Publish and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.GKE_PROJECT }}
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        export_default_credentials: true
+    - run: gcloud --quiet auth configure-docker
+    - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+    - name: Build BE
+      run: |-
+        cd part3/3.03/be-todos && ./mvnw clean package -Dmaven.test.skip=true
+        docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" .
+    - name: Publish BE
+      run: |-
+        docker push "gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+    - name: Build FE
+      run: |-
+        cd part3/3.03/fe-todos/todo-app && docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" .
+    - name: Publish FE
+      run: |-
+        docker push "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+    - name: Set up Kustomize
+      uses: imranismail/setup-kustomize@v1
+    - name: Deploy
+      run: |-
+        cd part3/3.03/
+        kustomize edit set image fe-todos=gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+        kustomize edit set image be-todos=gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+        kustomize build . | kubectl apply -f -
+        kubectl rollout status deployment todo-app
+        kubectl get services -o wide
