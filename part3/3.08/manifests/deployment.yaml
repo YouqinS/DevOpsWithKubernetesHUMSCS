@@ -46,7 +46,6 @@ spec:
                 secretKeyRef:
                   name: todoapp-postgress-secret
                   key: POSTGRES_PASSWORD
-          resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         - name: fe-todos
