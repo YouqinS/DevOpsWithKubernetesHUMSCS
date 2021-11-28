@@ -26,5 +26,5 @@ jobs:
       run: |-
         echo "Clean up for branch ${{ github.event.ref }}"
         kubectl delete all --all -n ${{ github.event.ref }}
-        echo "delete-environment"
+        kubectl delete namespaces ${{github.event.ref}}
 
