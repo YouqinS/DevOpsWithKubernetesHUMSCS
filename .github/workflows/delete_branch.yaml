@@ -6,12 +6,21 @@ on:
 jobs:
   delete-environment:
     name: Delete
+    if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.GKE_PROJECT }}
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        export_default_credentials: true
+    - run: gcloud --quiet auth configure-docker
+    - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
     - name: Delete
       run: |-
-        echo ${GITHUB_REF#refs/heads/}
-        kubectl delete all --all -n ${GITHUB_REF#refs/heads/}
+        echo "Clean up for branch ${{ github.event.ref }}"
+        kubectl delete all --all -n ${{ github.event.ref }}
         echo "delete-environment"
 
