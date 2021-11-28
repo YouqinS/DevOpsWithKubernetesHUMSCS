@@ -1,0 +1,14 @@
+name: Release application
+
+on:
+  delete:
+
+jobs:
+  delete-environment:
+    name: Delete
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Delete
+      run: |-
+        kubectl delete all --all -n ${GITHUB_REF#refs/heads/}
