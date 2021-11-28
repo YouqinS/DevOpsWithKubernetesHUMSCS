@@ -3,6 +3,10 @@ name: Release application
 on:
   delete:
 
+env:
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+
 jobs:
   delete-environment:
     name: Delete
