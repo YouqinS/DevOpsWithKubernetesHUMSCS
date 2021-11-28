@@ -27,9 +27,12 @@ spec:
           image: be-todos
           imagePullPolicy: Always
           resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
             limits:
-              cpu: "150m"
-              memory: "100Mi"
+              memory: "128Mi"
+              cpu: "500m"
           env:
             - name: spring.datasource.url
               valueFrom:
@@ -51,9 +54,12 @@ spec:
         - name: fe-todos
           image: fe-todos
           resources:
+            requests:
+              memory: "200Mi"
+              cpu: "250m"
             limits:
-              cpu: "150m"
-              memory: "100Mi"
+              memory: "300Mi"
+              cpu: "500m"
           imagePullPolicy: Always
       dnsPolicy: ClusterFirst
       restartPolicy: Always
