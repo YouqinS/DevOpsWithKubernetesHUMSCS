@@ -6,6 +6,7 @@ resources:
 - manifests/postgres-deployment.yaml
 - manifests/postgres-secret.yaml
 - manifests/postgres-service.yaml
+- manifests/persistentvolumeclaim.yaml
 
 images:
 - name: fe-todos
