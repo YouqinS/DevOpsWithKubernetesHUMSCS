@@ -29,14 +29,14 @@ jobs:
     - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
     - name: Build BE
       run: |-
-        cd part3/3.07/be-todos && ./mvnw clean package -Dmaven.test.skip=true
+        cd part3/3.08/be-todos && ./mvnw clean package -Dmaven.test.skip=true
         docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" .
     - name: Publish BE
       run: |-
         docker push "gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
     - name: Build FE
       run: |-
-        cd part3/3.07/fe-todos/todo-app && docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" .
+        cd part3/3.08/fe-todos/todo-app && docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" .
     - name: Publish FE
       run: |-
         docker push "gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
@@ -46,7 +46,7 @@ jobs:
       run: |-
         kubectl create namespace ${GITHUB_REF#refs/heads/} || true
         kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
-        cd part3/3.07/
+        cd part3/3.08/
         kustomize edit set namespace ${GITHUB_REF#refs/heads/}
         kustomize edit set image fe-todos=gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
         kustomize edit set image be-todos=gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
