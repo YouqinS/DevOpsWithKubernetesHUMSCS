@@ -50,9 +50,15 @@ jobs:
         echo "set-context"
 
         kustomize edit set namespace ${GITHUB_REF#refs/heads
+        echo "set-context1"
         cd part3/3.03/
+        echo "set-context2"
         kustomize edit set image fe-todos=gcr.io/$PROJECT_ID/$IMAGE_FE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+        echo "set-context3"
         kustomize edit set image be-todos=gcr.io/$PROJECT_ID/$IMAGE_BE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+        echo "set-context4"
         kustomize build . | kubectl apply -f -
+        echo "set-context5"
         kubectl rollout status deployment todo-app
+        echo "set-context6"
         kubectl get services -o wide
