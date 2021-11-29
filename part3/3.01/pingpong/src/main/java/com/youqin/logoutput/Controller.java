@@ -10,6 +10,7 @@ public class Controller {
     @Autowired
     private ServicePong service;
 
+
     @GetMapping("/")
     public String hello() {
         return "Greetings from ping pong";
@@ -17,7 +18,6 @@ public class Controller {
 
     @GetMapping("/pingpong")
     public String getPong() {
-
         return service.getPong();
     }
 
