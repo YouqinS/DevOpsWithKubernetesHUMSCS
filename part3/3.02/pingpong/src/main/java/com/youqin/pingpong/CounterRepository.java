@@ -1,4 +1,4 @@
-package com.youqin.logoutput;
+package com.youqin.pingpong;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

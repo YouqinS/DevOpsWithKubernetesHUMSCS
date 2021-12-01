@@ -1,4 +1,4 @@
-package com.youqin.logoutput;
+package com.youqin.pingpong;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

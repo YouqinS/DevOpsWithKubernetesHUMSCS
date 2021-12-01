@@ -1,11 +1,6 @@
-package com.youqin.logoutput;
+package com.youqin.pingpong;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 @org.springframework.stereotype.Service
 public class ServicePong {
