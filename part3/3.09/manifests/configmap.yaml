@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: logoutput-pigpong-configmap
-data:
-    MESSAGE: "Hello"
