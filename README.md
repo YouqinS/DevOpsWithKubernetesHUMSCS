@@ -7,8 +7,8 @@ exercises of course [DevOpS With Kubernetes](https://devopswithkubernetes.com/)
 
 
 The latest state of the project and applications are at:
-- /project
-- /applications
+- [/project](https://github.com/YouqinS/DevOpsWithKubernetesHUMSCS/tree/main/applications)
+- [/applications](https://github.com/YouqinS/DevOpsWithKubernetesHUMSCS/tree/main/project)
 
 The project(todo app) and applications(pingpong and logoutput) are copied to the folder of each exercise.
 And changes are made based on the requirements of the corresponding exercise.
