@@ -1,5 +1,5 @@
 IMAGE_TAG=exercise_4.01
-IMAGE_NAME_WITH_TAG=logoutput1:$(IMAGE_TAG)
+IMAGE_NAME_WITH_TAG=pingpong:$(IMAGE_TAG)
 
 all: package  image  push-image
 
@@ -19,5 +19,6 @@ push-image:
 run:
 	./mvnw org.springframework.boot:spring-boot-maven-plugin:run
 
-print-image:
-	echo $(IMAGE_NAME_WITH_TAG)
+start-postgres:
+	sudo docker run -d -it -p 5432:5432 -e POSTGRES_DB=pingpong -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres postgres:10.1
+
