@@ -6,6 +6,9 @@ exercises of course [DevOpS With Kubernetes](https://devopswithkubernetes.com/)
 - [Exercise 3.07: Commitment](https://github.com/YouqinS/DevOpsWithKubernetesHUMSCS/blob/main/part3/3.07/why_Postgres_PVC.md)
 
 
-The project(todo app) and/or applications(pingpong and logoutput) are copied to the folder of each exercise.
-And changes are made based on the requirements of the corresponding exercise.
+The latest state of the project and applications are at:
+- /project
+- /applications
 
+The project(todo app) and applications(pingpong and logoutput) are copied to the folder of each exercise.
+And changes are made based on the requirements of the corresponding exercise.
