@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: be-todos
-          image: lnsth/todo-app-be:exercise_4.02
+          image: be-todos
           imagePullPolicy: Always
           readinessProbe:
             initialDelaySeconds: 90
@@ -65,7 +65,7 @@ spec:
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         - name: fe-todos
-          image: lnsth/todo-app-fe:exercise_4.02
+          image: fe-todos
           resources:
             requests:
               memory: "200Mi"
