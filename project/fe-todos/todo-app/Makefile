@@ -1,4 +1,4 @@
-IMAGE_TAG=exercise_3.07
+IMAGE_TAG=exercise_4.02
 IMAGE_NAME_WITH_TAG=todo-app-fe:$(IMAGE_TAG)
 
 all:  image  push-image
