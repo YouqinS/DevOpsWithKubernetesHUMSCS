@@ -11,6 +11,6 @@ resources:
 
 images:
 - name: fe-todos
-  newName: lnsth/todo-app-fe:exercise_3.08
+  newName: lnsth/todo-app-fe:exercise_4.01
 - name: be-todos
-  newName: lnsth/todo-app-be:exercise_3.08
+  newName: lnsth/todo-app-be:exercise_4.01

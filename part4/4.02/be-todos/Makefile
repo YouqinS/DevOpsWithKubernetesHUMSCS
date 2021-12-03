@@ -32,6 +32,7 @@ run:
 	./mvnw clean org.springframework.boot:spring-boot-maven-plugin:run
 
 start-postgres:
+	sudo docker run -d -it -p 5432:5432 -e POSTGRES_DB=todo-app-be -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres postgres:10.1
 
 manifests:
 	sudo kubectl apply -f /home/zbook/devopsKube/exercises/DevOpsWithKubernetesHUMSCS/part2/2.08/manifests/ingress.yaml
