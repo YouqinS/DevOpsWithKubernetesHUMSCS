@@ -16,7 +16,7 @@ const ToDoItem = ({todo, fetchToDos}) => {
     }
 
     return (
-        <tr style={{background: todo.status === "Done" ? "lightgrey" : "white"}}>
+        <tr style={{background: todo.status === "Done" ? "lightgrey" : "white", textDecorationLine: todo.status === "Done" ? 'line-through' : ""}}>
             <td>{todo.content}</td>
             <td>{todo.status}</td>
             <td>
