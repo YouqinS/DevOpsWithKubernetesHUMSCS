@@ -1,4 +1,4 @@
-IMAGE_TAG=exercise_4.02
+IMAGE_TAG=exercise_4.04
 IMAGE_NAME_WITH_TAG=todo-app-be:$(IMAGE_TAG)
 
 all: package  image  push-image
