@@ -9,9 +9,9 @@ on:
       - '.github/workflows/gitops.yaml'
 
 jobs:
-
-  compile:
-    name: Create jars
+  package:
+    name: Create jar
+    steps:
     - name: package backend todos
       run: |-
           cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
@@ -22,6 +22,7 @@ jobs:
   build:
     name: Create docker image
     runs-on: ubuntu-latest
+    needs: package
     steps:
     - uses: actions/checkout@v2
 
