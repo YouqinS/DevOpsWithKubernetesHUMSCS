@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: be-todos
-          image: be-todos
+          image: lnsth/todo-app-be:exercise_4.06
           imagePullPolicy: Always
           readinessProbe:
             initialDelaySeconds: 90
@@ -52,7 +52,6 @@ spec:
                   name: todoapp-postgress-secret
                   key: spring.datasource.url
             - name: spring.datasource.username
-              #value: "wong username"
               valueFrom:
                 secretKeyRef:
                   name: todoapp-postgress-secret
@@ -62,10 +61,12 @@ spec:
                 secretKeyRef:
                   name: todoapp-postgress-secret
                   key: POSTGRES_PASSWORD
+            - name: NATS_URL
+              value: nats://my-nats.default.svc.cluster.local:4222
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         - name: fe-todos
-          image: fe-todos
+          image: lnsth/todo-app-fe:exercise_4.06
           resources:
             requests:
               memory: "200Mi"
@@ -79,3 +80,37 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broadcaster
+  namespace: todo-app-ns
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: broadcaster
+  template:
+    metadata:
+      labels:
+        app: broadcaster
+    spec:
+      containers:
+        - name: broadcaster
+          image: broadcaster
+          imagePullPolicy: Always
+          env:
+            - name: CHAT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: broadcaster-secret
+                  key: CHAT_ID
+
+            - name: BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: broadcaster-secret
+                  key: BOT_TOKEN
+            - name: NATS_URL
+              value: nats://my-nats.default.svc.cluster.local:4222

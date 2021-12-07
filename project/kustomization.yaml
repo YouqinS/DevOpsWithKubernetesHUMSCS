@@ -7,10 +7,12 @@ resources:
 - manifests/postgres-secret.yaml
 - manifests/postgres-service.yaml
 - manifests/persistentvolumeclaim.yaml
-- manifests/horizontalpodautoscaler.yaml
+- manifests/broadcaster-secret.yaml
 
 images:
 - name: fe-todos
-  newName: lnsth/todo-app-fe:exercise_4.05
+  newName: lnsth/todo-app-fe:exercise_4.06
 - name: be-todos
-  newName: lnsth/todo-app-be:exercise_4.05
+  newName: lnsth/todo-app-be:exercise_4.06
+- name: broadcaster
+  newName: lnsth/broadcaster:exercise_4.06

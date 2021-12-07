@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: todo-app
+  name: todo-app
+  namespace: todo-app-ns
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: todo-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      containers:
+        - name: be-todos
+          image: lnsth/todo-app-be:exercise_4.06
+          imagePullPolicy: Always
+          readinessProbe:
+            initialDelaySeconds: 90
+            periodSeconds: 5
+            httpGet:
+               path: /todo
+               port: 9999
+          livenessProbe:
+            initialDelaySeconds: 90
+            periodSeconds: 5
+            httpGet:
+               path: /todo
+               port: 9999
+          resources:
+            requests:
+              memory: "250Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "350m"
+          env:
+            - name: spring.datasource.url
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-postgress-secret
+                  key: spring.datasource.url
+            - name: spring.datasource.username
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-postgress-secret
+                  key: POSTGRES_USER
+            - name: spring.datasource.password
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-postgress-secret
+                  key: POSTGRES_PASSWORD
+            - name: NATS_URL
+              value: nats://my-nats.default.svc.cluster.local:4222
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        - name: fe-todos
+          image: lnsth/todo-app-fe:exercise_4.06
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "250m"
+            limits:
+              memory: "300Mi"
+              cpu: "350m"
+          imagePullPolicy: Always
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broadcaster
+  namespace: todo-app-ns
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: broadcaster
+  template:
+    metadata:
+      labels:
+        app: broadcaster
+    spec:
+      containers:
+        - name: broadcaster
+          image: lnsth/broadcaster:exercise_4.06
+          imagePullPolicy: Always
+          env:
+            - name: CHAT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: broadcaster-secret
+                  key: CHAT_ID
+
+            - name: BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: broadcaster-secret
+                  key: BOT_TOKEN
+            - name: NATS_URL
+              value: nats://my-nats.default.svc.cluster.local:4222
