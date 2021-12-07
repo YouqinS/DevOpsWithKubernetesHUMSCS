@@ -15,10 +15,11 @@ jobs:
     steps:
     - name: package backend todos
       run: |-
-          cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
+          echo ${pwd}
+          cd be-todos && ./mvnw clean package -Dmaven.test.skip=true
     - name: package broadcaster
       run: |-
-          cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
+          cd broadcaster && ./mvnw clean package -Dmaven.test.skip=true
 
   build:
     name: Create docker image
