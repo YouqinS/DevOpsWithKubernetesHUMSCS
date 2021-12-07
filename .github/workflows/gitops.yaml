@@ -1,0 +1,71 @@
+name: gitops
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'project/**'
+      - '.github/workflows/gitops.yml'
+
+jobs:
+  build:
+    name: Create docker image
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push be-todos
+      uses: docker/build-push-action@v2
+      with:
+        context: project/be-todos/
+        push: true
+        tags: lnsth/todo-app-be:${{ github.sha }}
+
+    - name: Build and push fe-todos
+      uses: docker/build-push-action@v2
+      with:
+        context: project/fe-todos/todo-app/
+        push: true
+        tags: lnsth/todo-app-fe:${{ github.sha }}
+
+    - name: Build and push broadcaster
+      uses: docker/build-push-action@v2
+      with:
+        context: project/broadcaster/
+        push: true
+        tags: lnsth/broadcaster:${{ github.sha }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Set up kustomize
+    - name: Set up Kustomize
+      uses: imranismail/setup-kustomize@v1
+
+    # Update yamls
+    - name: Update yamls
+      working-directory: project/manifests
+      run: |-
+        kustomize edit set image fe-todos=lnsth/todo-app-fe:${{ github.sha }}
+        kustomize edit set image be-todos=lnsth/todo-app-be:${{ github.sha }}
+        kustomize edit set image broadcaster=lnsth/broadcaster:${{ github.sha }}
+
+    # Commit and push
+    - uses: EndBug/add-and-commit@v7
+      with:
+        add: 'project/manifests/kustomization.yaml'
+        message: New version release for gitops-app ${{ github.sha }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

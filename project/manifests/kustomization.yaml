@@ -11,8 +11,8 @@ resources:
 
 images:
 - name: fe-todos
-  newName: lnsth/todo-app-fe:exercise_4.06
+  newName: todo-app-fe
 - name: be-todos
-  newName: lnsth/todo-app-be:exercise_4.06
+  newName: todo-app-be
 - name: broadcaster
-  newName: lnsth/broadcaster:exercise_4.06
+  newName: broadcaster
