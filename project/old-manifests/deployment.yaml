@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
         - name: broadcaster
-          image: lnsth/broadcaster:exercise_4.06
+          image: broadcaster
           imagePullPolicy: Always
           env:
             - name: CHAT_ID
