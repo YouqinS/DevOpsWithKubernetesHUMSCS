@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: package backend todos
       run: |-
-          echo ${pwd}
+          echo $(pwd)
           cd be-todos && ./mvnw clean package -Dmaven.test.skip=true
     - name: package broadcaster
       run: |-
