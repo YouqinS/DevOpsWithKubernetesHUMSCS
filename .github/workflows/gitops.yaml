@@ -11,6 +11,7 @@ on:
 jobs:
   package:
     name: Create jar
+    runs-on: ubuntu-latest
     steps:
     - name: package backend todos
       run: |-
