@@ -9,6 +9,15 @@ on:
       - '.github/workflows/gitops.yaml'
 
 jobs:
+
+  compile:
+    - name: Compile be-todos
+      run: |-
+          cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
+    - name: Compile broadcaster
+      run: |-
+          cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
+
   build:
     name: Create docker image
     runs-on: ubuntu-latest
