@@ -16,7 +16,10 @@ jobs:
     - name: package backend todos
       run: |-
           echo $(pwd)
-          cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
+          ls -al
+          cd project
+          cd be-todos 
+          ./mvnw clean package -Dmaven.test.skip=true
     - name: package broadcaster
       run: |-
           cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
