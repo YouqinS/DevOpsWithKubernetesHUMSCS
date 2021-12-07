@@ -38,10 +38,5 @@ run:
 start-postgres:
 
 manifests:
-	sudo kubectl apply -f /home/zbook/devopsKube/exercises/DevOpsWithKubernetesHUMSCS/part2/2.08/manifests/ingress.yaml
-	sudo kubectl apply -f /home/zbook/devopsKube/exercises/DevOpsWithKubernetesHUMSCS/part2/2.08/manifests/postgres-service.yaml
-	sudo kubectl apply -f /home/zbook/devopsKube/exercises/DevOpsWithKubernetesHUMSCS/part2/2.08/manifests/postgres-secret.yaml
-	sudo kubectl apply -f /home/zbook/devopsKube/exercises/DevOpsWithKubernetesHUMSCS/part2/2.08/manifests/postgres-deployment.yaml
-	sudo kubectl apply -f /home/zbook/devopsKube/exercises/DevOpsWithKubernetesHUMSCS/part2/2.08/manifests/service.yaml
-	sudo kubectl apply -f /home/zbook/devopsKube/exercises/DevOpsWithKubernetesHUMSCS/part2/2.08/manifests/deployment.yaml
+
 
