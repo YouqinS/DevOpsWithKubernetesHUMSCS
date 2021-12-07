@@ -11,10 +11,11 @@ on:
 jobs:
 
   compile:
-    - name: Compile be-todos
+    name: Create jars
+    - name: package backend todos
       run: |-
           cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
-    - name: Compile broadcaster
+    - name: package broadcaster
       run: |-
           cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
 
