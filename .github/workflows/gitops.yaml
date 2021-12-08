@@ -21,23 +21,21 @@ jobs:
           echo $(pwd)
           ls -al
           cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
-          ls -al
     - name: Upload backend jar
       uses: actions/upload-artifact@v1
       with:
         name: backendjar
-        #path: ./target
+        path: project/be-todos/target
 
 
     - name: package broadcaster
       run: |-
           cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
-          ls -al
     - name: Upload broadcaster jar
       uses: actions/upload-artifact@v1
       with:
         name: broadcasterjar
-        #path: ./target
+        path: project/broadcaster/target
 
   build:
     name: Create docker image
