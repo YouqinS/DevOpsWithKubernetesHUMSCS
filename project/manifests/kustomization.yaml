@@ -10,9 +10,12 @@ resources:
 - manifests/broadcaster-secret.yaml
 
 images:
-- name: fe-todos
-  newName: todo-app-fe
 - name: be-todos
-  newName: todo-app-be
+  newName: lnsth/todo-app-be
+  newTag: 4c36e348b01ef61cc7823cabd3626c34c04c9819
 - name: broadcaster
-  newName: broadcaster
+  newName: lnsth/broadcaster
+  newTag: 4c36e348b01ef61cc7823cabd3626c34c04c9819
+- name: fe-todos
+  newName: lnsth/todo-app-fe
+  newTag: 4c36e348b01ef61cc7823cabd3626c34c04c9819
