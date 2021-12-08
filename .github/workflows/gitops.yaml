@@ -33,7 +33,7 @@ jobs:
           cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
     - name: Upload broadcaster jar
       uses: actions/upload-artifact@v1
-       with:
+      with:
         name: broadcasterjar
         path: ./target
 
