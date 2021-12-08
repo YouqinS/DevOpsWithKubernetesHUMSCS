@@ -75,7 +75,7 @@ jobs:
     - name: Download broadcaster jar
       uses: actions/download-artifact@v1
       with: 
-        name: backendjar
+        name: broadcasterjar
         path: project/broadcaster/target
 
     - name: Build and push broadcaster
