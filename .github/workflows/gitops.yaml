@@ -21,25 +21,23 @@ jobs:
           echo $(pwd)
           ls -al
           cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
-          ls 
-          mkdir target1
+          ls -al
     - name: Upload backend jar
       uses: actions/upload-artifact@v1
       with:
         name: backendjar
-        path: ./target1
+        #path: ./target
 
 
     - name: package broadcaster
       run: |-
           cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
-          ls
-          mkdir target1
+          ls -al
     - name: Upload broadcaster jar
       uses: actions/upload-artifact@v1
       with:
         name: broadcasterjar
-        path: ./target1
+        #path: ./target
 
   build:
     name: Create docker image
@@ -59,7 +57,7 @@ jobs:
       uses: actions/download-artifact@v1
       with: 
         name: backendjar
-        path: project/be-todos/target1
+        path: project/be-todos/target
 
     - name: Build and push be-todos
       uses: docker/build-push-action@v2
@@ -80,7 +78,7 @@ jobs:
       uses: actions/download-artifact@v1
       with: 
         name: backendjar
-        path: project/broadcaster/target1
+        path: project/broadcaster/target
 
     - name: Build and push broadcaster
       uses: docker/build-push-action@v2
