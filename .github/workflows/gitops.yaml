@@ -22,8 +22,8 @@ jobs:
           ls -al
           cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
     - name: Upload backend jar
-       uses: actions/upload-artifact@v1
-       with:
+      uses: actions/upload-artifact@v1
+      with:
         name: backendjar
         path: ./target
 
@@ -32,7 +32,7 @@ jobs:
       run: |-
           cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
     - name: Upload broadcaster jar
-       uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v1
        with:
         name: broadcasterjar
         path: ./target
