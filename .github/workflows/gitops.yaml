@@ -15,17 +15,27 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      
+
     - name: package backend todos
       run: |-
           echo $(pwd)
           ls -al
-          cd project
-          cd be-todos 
-          ./mvnw clean package -Dmaven.test.skip=true
+          cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
+    - name: Upload backend jar
+       uses: actions/upload-artifact@v1
+       with:
+        name: backendjar
+        path: ./target
+
+
     - name: package broadcaster
       run: |-
           cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
+    - name: Upload broadcaster jar
+       uses: actions/upload-artifact@v1
+       with:
+        name: broadcasterjar
+        path: ./target
 
   build:
     name: Create docker image
@@ -34,11 +44,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Download backend jar
+      uses: actions/download-artifact@v1
+      with: 
+        name: backendjar
+        path: project/be-todos/target
 
     - name: Build and push be-todos
       uses: docker/build-push-action@v2
@@ -53,6 +70,13 @@ jobs:
         context: project/fe-todos/todo-app/
         push: true
         tags: lnsth/todo-app-fe:${{ github.sha }}
+
+
+    - name: Download broadcaster jar
+      uses: actions/download-artifact@v1
+      with: 
+        name: backendjar
+        path: project/broadcaster/target
 
     - name: Build and push broadcaster
       uses: docker/build-push-action@v2
