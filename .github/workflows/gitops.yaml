@@ -21,6 +21,7 @@ jobs:
           echo $(pwd)
           ls -al
           cd project/be-todos && ./mvnw clean package -Dmaven.test.skip=true
+          mkdir target
     - name: Upload backend jar
       uses: actions/upload-artifact@v1
       with:
@@ -31,6 +32,7 @@ jobs:
     - name: package broadcaster
       run: |-
           cd project/broadcaster && ./mvnw clean package -Dmaven.test.skip=true
+          mkdir target
     - name: Upload broadcaster jar
       uses: actions/upload-artifact@v1
       with:
