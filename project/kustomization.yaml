@@ -12,10 +12,10 @@ resources:
 images:
 - name: be-todos
   newName: lnsth/todo-app-be
-  newTag: 4c36e348b01ef61cc7823cabd3626c34c04c9819
+  newTag: 8859e4aa634ae2eeb1b519a357139fae0528e499
 - name: broadcaster
   newName: lnsth/broadcaster
-  newTag: 4c36e348b01ef61cc7823cabd3626c34c04c9819
+  newTag: 8859e4aa634ae2eeb1b519a357139fae0528e499
 - name: fe-todos
   newName: lnsth/todo-app-fe
-  newTag: 4c36e348b01ef61cc7823cabd3626c34c04c9819
+  newTag: 8859e4aa634ae2eeb1b519a357139fae0528e499
