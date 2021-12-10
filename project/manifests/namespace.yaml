@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: todo-app-ns
+  name: todo-app-ns
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active
