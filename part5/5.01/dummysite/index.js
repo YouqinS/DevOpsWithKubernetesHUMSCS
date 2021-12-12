@@ -2,9 +2,8 @@
 const express = require("express");
 const axios = require('axios');
 require('dotenv').config();
-//const website_url = process.env.WEBSITE_URL;
-const website_url = "https://example.com/";
-//const website_url = "https://devopswithkubernetes.com/";
+const website_url = process.env.WEBSITE_URL;
+//const website_url = "https://example.com/";
 
 const app = express();
 const port = process.env.PORT || "3000";

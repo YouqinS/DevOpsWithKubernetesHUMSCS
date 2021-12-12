@@ -1,0 +1,7 @@
+domain: youqin.sun
+repo: youqin.sun
+resources:
+- group: youqin.sun
+  kind: DummySite
+  version: v1
+version: "2"
