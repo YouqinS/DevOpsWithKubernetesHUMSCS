@@ -1,0 +1,30 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: pingpong-knative
+  namespace: applications
+spec:
+  template:
+    metadata: 
+      name: pingpong-knative-app
+    spec:
+      containers:
+        - image: lnsth/pingpong:exercise_5.05
+          env:
+            - name: spring.datasource.url
+              valueFrom:
+                secretKeyRef:
+                  name: postgress-secret
+                  key: jdbc.url
+            - name: spring.datasource.username
+              valueFrom:
+                secretKeyRef:
+                  name: postgress-secret
+                  key: POSTGRES_USER
+            - name: spring.datasource.password
+              valueFrom:
+                secretKeyRef:
+                  name: postgress-secret
+                  key: POSTGRES_PASSWORD
+            - name: server.port
+              value: "8080"
